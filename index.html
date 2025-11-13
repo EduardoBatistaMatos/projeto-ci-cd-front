@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora</title>
+  <link rel="stylesheet" href="calc.css">
+  <script defer src="/calc.js"></script>
+</head>
+<style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #130875;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.calculator {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 320px;
+}
+
+.display {
+  background-color: #333;
+  color: #fff;
+  font-size: 2rem;
+  text-align: right;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+button {
+  background-color: #e0e0e0;
+  border: none;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #d0d0d0;
+}
+
+button.operation {
+  background-color: #ff9f43;
+  color: #fff;
+}
+
+button.operation:hover {
+  background-color: #ff7f0e;
+}
+
+button.equals {
+  background-color: #28a745;
+  color: #fff;
+  grid-column: span 2;
+}
+
+button.equals:hover {
+  background-color: #218838;
+}
+
+button.clear {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+button.clear:hover {
+  background-color: #c82333;
+}
+</style>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="button-container">
+      <button class="clear">C</button>
+      <button class="operation">/</button>
+      <button class="operation">*</button>
+      <button class="operation">-</button>
+
+      <button class="number">7</button>
+      <button class="number">8</button>
+      <button class="number">9</button>
+      <button class="operation">+</button>
+
+      <button class="number">4</button>
+      <button class="number">5</button>
+      <button class="number">6</button>
+      <button class="operation">-</button>
+
+      <button class="number">1</button>
+      <button class="number">2</button>
+      <button class="number">3</button>
+      <button class="operation">*</button>
+
+      <button class="number">0</button>
+      <button class="equals">=</button>
+    </div>
+  </div>
+
+<script>
+const display = document.getElementById("display");
+
+// Adiciona números ao display
+document.querySelectorAll(".number").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (display.textContent === "0") {
+      display.textContent = btn.textContent;
+    } else {
+      display.textContent += btn.textContent;
+    }
+  });
+});
+
+// Adiciona operadores ao display
+document.querySelectorAll(".operation").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const lastChar = display.textContent.slice(-1);
+    if (!["+", "-", "*", "/"].includes(lastChar)) {
+      display.textContent += btn.textContent;
+    }
+  });
+});
+
+// Limpa o display
+document.querySelector(".clear").addEventListener("click", () => {
+  display.textContent = "0";
+});
+
+// Calcula o resultado
+document.querySelector(".equals").addEventListener("click", () => {
+  const expressao = display.textContent;
+
+  const operador = expressao.match(/[-+/*]/)?.[0]; // ou coloque o hífen no final ou no início
+  if (!operador) {
+    display.textContent = "Erro";
+    return;
+  }
+
+  const [a, b] = expressao.split(operador);
+  if (!a || !b || isNaN(a) || isNaN(b)) {
+    display.textContent = "Erro";
+    return;
+  }
+
+  // Define a URL completa da API de acordo com o operador
+  const url_raiz = "https://backend-zv5r.onrender.com";
+  let url;
+  switch (operador) {
+     
+    //Adicionar Funcionalidades
+    
+   
+    case "*":
+      url = `${url_raiz}/multiplicacao?num1=${a}&num2=${b}`;
+      break;
+
+    
+  }
+
+  // Faz a requisição à API correspondente usando Fetch
+  fetch(url)
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      return res.json();
+    })
+    .then((data) => {
+      display.textContent = data.result || data.resultado;
+    })
+    .catch((err) => {
+      display.textContent = "Erro";
+      console.error("Erro na requisição:", err);
+    });
+});
+</script>
+</body>
+</html>
