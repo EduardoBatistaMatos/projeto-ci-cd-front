@@ -9,7 +9,7 @@
 <style>
     body {
   font-family: Arial, sans-serif;
-  background-color: #091796;
+  background-color: #e22121;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -158,35 +158,28 @@ document.querySelector(".equals").addEventListener("click", () => {
   }
 
   // Define a URL completa da API de acordo com o operador
-  const url_raiz = "https://projeto-ci-cd-back-5k23.onrender.com";
+  const url_raiz = "https://backend-zv5r.onrender.com";
   let url;
   switch (operador) {
      
-    case "+":
-      url = `${url_raiz}/soma?num1=${a}&num2=${b}`;
-      break;
-    
+    //Adicionar Funcionalidades
 
-    
-    case "-":
+    case "+":
+      url = `${url_raiz}/adicao?num1=${a}&num2=${b}`;
+      break;
+
+     case "-":
       url = `${url_raiz}/subtracao?num1=${a}&num2=${b}`;
       break;
 
-    
-
-   
     case "*":
       url = `${url_raiz}/multiplicacao?num1=${a}&num2=${b}`;
       break;
 
-    
-
-    
-    case "/":
+      case "/":
       url = `${url_raiz}/divisao?num1=${a}&num2=${b}`;
       break;
 
-    
   }
 
   // Faz a requisição à API correspondente usando Fetch
