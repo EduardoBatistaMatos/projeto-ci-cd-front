@@ -1,4 +1,4 @@
-# Projeto CI/CD - Exemplo
+# Projeto CI/CD - Frontend
 
 ## Objetivo
 Demonstrar integração entre GitHub, Render e Vercel com deploy automatizado via GitHub Actions.
@@ -7,7 +7,6 @@ Demonstrar integração entre GitHub, Render e Vercel com deploy automatizado vi
 - **GitHub Actions:** Automatização do fluxo de build e deploy.
 - **Vercel:** Hospedagem do front-end.
 - **Render:** Hospedagem do back-end.
-- **Node.js:** Backend da aplicação.
 - **HTML, CSS, JavaScript:** Front-end da aplicação.
 
 ## Fluxo de Deploy
